@@ -31,10 +31,13 @@ const App = () => {
     //   React.createElement('h2', {}, "Let's get started!"),
     //   React.createElement(Expenses, { items: expenses })
     // );
-
+    const addExpenseHandler = expense => {
+        console.log("I am in App.js")
+        console.log(expense)
+    }
     return (
         <div>
-            <NewExpense></NewExpense>
+            <NewExpense onAddExpense = {addExpenseHandler} />
             <ExpenseList expenses={expenses} />
         </div>
     );
