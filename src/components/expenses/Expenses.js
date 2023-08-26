@@ -39,9 +39,7 @@ function Expenses(props) {
                     chosenYear={selectedYear}
                     onSelectedYear={selectYear}/>
                 <p>{filterInfoText}</p>
-                {props.expenses.map((expense) => {
-                    // Check if the expense's date matches the condition
-
+                {props.items.map(expense => {
                     if (expense.date.getFullYear() === selectedYear) {
                         return (
                             <ExpenseItem
