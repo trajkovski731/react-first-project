@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import ExpenseList from "./components/expenses/ExpenseList";
+import Expenses from "./components/expenses/Expenses";
 import NewExpense from "./components/newExpense/NewExpense";
+
 const App = () => {
+
     const expenses = [
         {
             id: 'e1',
@@ -10,7 +12,7 @@ const App = () => {
             amount: 94.12,
             date: new Date(2020, 7, 14),
         },
-        { id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12) },
+        {id: 'e2', title: 'New TV', amount: 799.49, date: new Date(2021, 2, 12)},
         {
             id: 'e3',
             title: 'Car Insurance',
@@ -21,9 +23,10 @@ const App = () => {
             id: 'e4',
             title: 'New Desk (Wooden)',
             amount: 450,
-            date: new Date(2021, 5, 12),
+            date: new Date(2022, 5, 12),
         },
     ];
+    const [enteredExpenses, setExpenses] = useState(expenses);
 
     // return React.createElement(
     //   'div',
@@ -34,11 +37,15 @@ const App = () => {
     const addExpenseHandler = expense => {
         console.log("I am in App.js")
         console.log(expense)
+        expenses.push(expense);
+        console.log(expenses)
+        setExpenses(expenses)
+
     }
     return (
         <div>
-            <NewExpense onAddExpense = {addExpenseHandler} />
-            <ExpenseList expenses={expenses} />
+            <NewExpense onAddExpense={addExpenseHandler}/>
+            <Expenses expenses={enteredExpenses}/>
         </div>
     );
 }
