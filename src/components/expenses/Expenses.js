@@ -16,7 +16,6 @@ function Expenses(props) {
     if (selectedYear === '2019') {
         filterInfoText = '2020, 2021 & 2022';
     } else if (selectedYear === '2020') {
-        debugger
         filterInfoText = '2019, 2021 & 2022';
     } else if (selectedYear === '2021') {
         filterInfoText = '2019, 2020 & 2022';
@@ -24,12 +23,27 @@ function Expenses(props) {
         filterInfoText = '2019, 2020 & 2021'
     }
 
-    const selectYear = year => {
-        console.log("This is from the expense list: " + year)
-        setSelectedYear(year);
-        console.log(selectedYear)
-        debugger
+    let filteredExpenses = props.items.filter(item => {
+        return item.date.getFullYear().toString() === selectedYear
+    })
 
+    const selectYear = year => {
+        setSelectedYear(year);
+    }
+
+    let expensesContent = <p>No expenses found</p>;
+
+    if (filteredExpenses.length > 0) {
+        expensesContent = filteredExpenses.map(expense => {
+            return (
+                <ExpenseItem
+                    key={expense.id}
+                    title={expense.title}
+                    amount={expense.amount}
+                    date={expense.date}
+                />
+            );
+        })
     }
 
     return (
@@ -39,19 +53,7 @@ function Expenses(props) {
                     chosenYear={selectedYear}
                     onSelectedYear={selectYear}/>
                 <p>{filterInfoText}</p>
-                {props.items.map(expense => {
-                    if (expense.date.getFullYear() === selectedYear) {
-                        return (
-                            <ExpenseItem
-                                title={expense.title}
-                                amount={expense.amount}
-                                date={expense.date}
-                            />
-                        );
-                    } else {
-                        return null; // Don't render anything for other expenses
-                    }
-                })}
+                {expensesContent}
             </Card>
         </div>
     )
