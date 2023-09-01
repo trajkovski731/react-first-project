@@ -60,6 +60,7 @@ function ExpenseForm(props) {
         }
 
         props.onSaveExpenseData(enteredData)
+        props.onCancelOrAddExpenseClicked()
         setEnteredTitle('');
         setEnteredAmount('');
         setEnteredDate('');
@@ -90,6 +91,7 @@ function ExpenseForm(props) {
             </div>
             <div className="new-expense__actions">
                 <button type="submit">Add Expense</button>
+                <button type="button" onClick={props.onCancelOrAddExpenseClicked}>Cancel</button>
             </div>
         </form>
     )
